@@ -1,6 +1,12 @@
+
+
 plugins {
+
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.com.google.devtools.ksp.plugin)
+    id ("org.jetbrains.kotlin.kapt")
+   // alias(libs.plugins.kapt)
 }
 
 android {
@@ -16,6 +22,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    /*configurations.implementation{
+        exclude(group = "com.intellij", module = "annotations")
+    }*/
 
     buildTypes {
         release {
@@ -30,19 +39,35 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+        //dataBinding = true
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
+/*    configurations {
+        cleanedAnnotations compile.exclude {
+            group == 'com.intellij' && module == 'annotations'
+        }
+    }*/
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    //implementation(libs.androidx.room.compiler.v161)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.room.common)
+    implementation(libs.androidx.room.ktx)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.androidx.room.compiler.v161)
+   // ksp(libs.androidx.room.compiler.v161)
 }
+
+
