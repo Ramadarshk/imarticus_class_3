@@ -23,7 +23,7 @@ abstract class itemRoomDB:RoomDatabase() {
                 val instance = Room.databaseBuilder(context.applicationContext,
                     itemRoomDB::class.java,
                     "item_database")
-                    //.fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 return instance
